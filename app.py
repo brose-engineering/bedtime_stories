@@ -110,4 +110,4 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children], outputs=[story_output, image_output], concurrency_limit=3)
 
-demo.launch(server_name="0.0.0.0", server_port=7860)
+demo.launch(server_name="0.0.0.0", server_port=7860, favicon_path="favico.png")
