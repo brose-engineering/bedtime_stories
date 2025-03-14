@@ -106,8 +106,8 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     with gr.Row():
         story_output = gr.Textbox(label="Story:", lines=30)
 
-    gr.Markdown("Made with ❤️ in Germany")
+    gr.Markdown("Made with ❤️ in Germany [by brose-engineering.de](https://brose-engineering.de/)")
     
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children], outputs=[story_output, image_output], concurrency_limit=3)
 
-demo.launch(server_name="0.0.0.0", server_port=7860, favicon_path="favico.png")
+demo.launch(server_name="0.0.0.0", server_port=7860)
