@@ -34,7 +34,7 @@ def create_story(number_of_children, target, theme):
 
 
 def translate(story_english, to_language):
-    MODEL_NAME = "meta-llama/Llama-3.3-70B-Instruct"
+    MODEL_NAME = "meta-llama/Meta-Llama-3.1-405B-Instruct-FP8"
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": f"You are an assistant who translates text from English into different languages."},
