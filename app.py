@@ -9,7 +9,7 @@ import requests
 # Global Stuff
 languages = ["English", "French", "German", "Italian", "Polish", "Portuguese" , "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
-themes = ["Friendship", "Dinosaurs", "Police", "Firebrigade", "Action-Heros", "Princesses", "Pets"] 
+themes = ["Friendship", "Dinosaurs", "Police", "Firebrigade", "Action-Heros", "Princesses", "Pets", "Ponys"] 
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
 
 
@@ -19,7 +19,7 @@ def create_story(number_of_children, target, theme):
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": "You are an author who creates beautiful bedtime stories for kids."},
-    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme} and an audience of {number_of_children} kids. Give back the story itself without any additional comments."}
+    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. There is an audience of {number_of_children} kids. Create only a story without any additional comments."}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
@@ -34,7 +34,7 @@ def create_story(number_of_children, target, theme):
 
 
 def translate(story_english, to_language):
-    MODEL_NAME = "meta-llama/Meta-Llama-3.1-405B-Instruct-FP8"
+    MODEL_NAME = "meta-llama/Llama-3.3-70B-Instruct"
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": f"You are an assistant who translates text from English into different languages."},
