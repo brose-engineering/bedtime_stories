@@ -6,21 +6,20 @@ import requests
 
 
 # Global Stuff
-languages = [
-    "Bulgarian",  "Croatian",  "Czech",  "Danish",  "Dutch",  "English",  "Estonian",  "Finnish",  
-    "French",  "German",  "Greek",  "Hungarian",  "Irish",  "Italian",  "Latvian",  "Lithuanian",  
-    "Maltese",  "Polish",  "Portuguese" , "Romanian" , "Slovak" , "Slovenian" , "Spanish" , "Swedish"]
-     
-IONOS_API_TOKEN = "eyJ0eXAiOiJKV1QiLCJraWQiOiI0M2FlNjY0ZC03ZWFlLTQ0ODctOGVjOS1mNzYxMGJkNWY1ZTgiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJpb25vc2Nsb3VkIiwiaWF0IjoxNzM3ODkwODE0LCJjbGllbnQiOiJVU0VSIiwiaWRlbnRpdHkiOnsicm9sZSI6Im93bmVyIiwiY29udHJhY3ROdW1iZXIiOjM1MDEyODQ5LCJpc1BhcmVudCI6ZmFsc2UsInByaXZpbGVnZXMiOlsiREFUQV9DRU5URVJfQ1JFQVRFIiwiU05BUFNIT1RfQ1JFQVRFIiwiSVBfQkxPQ0tfUkVTRVJWRSIsIk1BTkFHRV9EQVRBUExBVEZPUk0iLCJBQ0NFU1NfQUNUSVZJVFlfTE9HIiwiUENDX0NSRUFURSIsIkFDQ0VTU19TM19PQkpFQ1RfU1RPUkFHRSIsIkJBQ0tVUF9VTklUX0NSRUFURSIsIkNSRUFURV9JTlRFUk5FVF9BQ0NFU1MiLCJLOFNfQ0xVU1RFUl9DUkVBVEUiLCJGTE9XX0xPR19DUkVBVEUiLCJBQ0NFU1NfQU5EX01BTkFHRV9NT05JVE9SSU5HIiwiQUNDRVNTX0FORF9NQU5BR0VfQ0VSVElGSUNBVEVTIiwiQUNDRVNTX0FORF9NQU5BR0VfTE9HR0lORyIsIk1BTkFHRV9EQkFBUyIsIkFDQ0VTU19BTkRfTUFOQUdFX0ROUyIsIk1BTkFHRV9SRUdJU1RSWSIsIkFDQ0VTU19BTkRfTUFOQUdFX0NETiIsIkFDQ0VTU19BTkRfTUFOQUdFX1ZQTiIsIkFDQ0VTU19BTkRfTUFOQUdFX0FQSV9HQVRFV0FZIiwiQUNDRVNTX0FORF9NQU5BR0VfTkdTIiwiQUNDRVNTX0FORF9NQU5BR0VfS0FBUyIsIkFDQ0VTU19BTkRfTUFOQUdFX05FVFdPUktfRklMRV9TVE9SQUdFIiwiQUNDRVNTX0FORF9NQU5BR0VfQUlfTU9ERUxfSFVCIiwiQ1JFQVRFX05FVFdPUktfU0VDVVJJVFlfR1JPVVBTIiwiQUNDRVNTX0FORF9NQU5BR0VfSUFNX1JFU09VUkNFUyJdLCJ1dWlkIjoiZTBlZGEzMmMtYWYyZS00MTAzLWI2NTEtYzUxODFkNWI0NWUyIiwicmVzZWxsZXJJZCI6MSwicmVnRG9tYWluIjoiaW9ub3MuZGUifSwiZXhwIjoxNzQzMDc0ODE0fQ.djYpLyl8H5qlUsbd3q9CoPer34a6jrA6Csv0njFVXbLjWKhT2HefAFfakVlr4R3bthyMPTtSsEJkMDotKACCzMiFnSSon3y7i5C9SGTEDQOCQI1HLOGGV8C7x3b9rHfWsxt6QZ-00Qv7cHAuea7MkqqyhlaXKg1MGkZoBLauYv3E6pOTKA5I9ft-M_o7MPgKBgvPXdX4YS51XC7iVmDlo4bpeoh3La-DFRresdxcmXoExSSoaeFDmfSXQqlYgITjIpfc_uLl1i4dM7VgzNAu9HcdKGnMf_OYCYy8G0UqLdQ7xrF81whxd6HyN8sE4G1v-8b1yPzTcBs0cH8ZHjZbEQ"
+languages = ["English", "French", "German", "Italian", "Polish", "Portuguese" , "Spanish"]
+targets = ["Girls", "Boys", "Girls and Boys"]
+themes = ["Friendship", "Dinosaurs", "Police", "Firebrigade", "Action-Heros", "Princesses", "Pets"] 
+#Token-ID in IONOS: a2e581cf-74b5-4ba7-8689-f4e0656fd6a1 
+IONOS_API_TOKEN = "eyJ0eXAiOiJKV1QiLCJraWQiOiJhMmU1ODFjZi03NGI1LTRiYTctODY4OS1mNGUwNjU2ZmQ2YTEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJpb25vc2Nsb3VkIiwiaWF0IjoxNzQxOTYxMjMzLCJjbGllbnQiOiJVU0VSIiwiaWRlbnRpdHkiOnsiY29udHJhY3ROdW1iZXIiOjM1MDEyODQ5LCJyb2xlIjoib3duZXIiLCJyZWdEb21haW4iOiJpb25vcy5kZSIsInJlc2VsbGVySWQiOjEsInV1aWQiOiJlMGVkYTMyYy1hZjJlLTQxMDMtYjY1MS1jNTE4MWQ1YjQ1ZTIiLCJwcml2aWxlZ2VzIjpbIkRBVEFfQ0VOVEVSX0NSRUFURSIsIlNOQVBTSE9UX0NSRUFURSIsIklQX0JMT0NLX1JFU0VSVkUiLCJNQU5BR0VfREFUQVBMQVRGT1JNIiwiQUNDRVNTX0FDVElWSVRZX0xPRyIsIlBDQ19DUkVBVEUiLCJBQ0NFU1NfUzNfT0JKRUNUX1NUT1JBR0UiLCJCQUNLVVBfVU5JVF9DUkVBVEUiLCJDUkVBVEVfSU5URVJORVRfQUNDRVNTIiwiSzhTX0NMVVNURVJfQ1JFQVRFIiwiRkxPV19MT0dfQ1JFQVRFIiwiQUNDRVNTX0FORF9NQU5BR0VfTU9OSVRPUklORyIsIkFDQ0VTU19BTkRfTUFOQUdFX0NFUlRJRklDQVRFUyIsIkFDQ0VTU19BTkRfTUFOQUdFX0xPR0dJTkciLCJNQU5BR0VfREJBQVMiLCJBQ0NFU1NfQU5EX01BTkFHRV9ETlMiLCJNQU5BR0VfUkVHSVNUUlkiLCJBQ0NFU1NfQU5EX01BTkFHRV9DRE4iLCJBQ0NFU1NfQU5EX01BTkFHRV9WUE4iLCJBQ0NFU1NfQU5EX01BTkFHRV9BUElfR0FURVdBWSIsIkFDQ0VTU19BTkRfTUFOQUdFX05HUyIsIkFDQ0VTU19BTkRfTUFOQUdFX0tBQVMiLCJBQ0NFU1NfQU5EX01BTkFHRV9ORVRXT1JLX0ZJTEVfU1RPUkFHRSIsIkFDQ0VTU19BTkRfTUFOQUdFX0FJX01PREVMX0hVQiIsIkNSRUFURV9ORVRXT1JLX1NFQ1VSSVRZX0dST1VQUyIsIkFDQ0VTU19BTkRfTUFOQUdFX0lBTV9SRVNPVVJDRVMiXSwiaXNQYXJlbnQiOmZhbHNlfSwiZXhwIjoxNzQ5NzM3MjMzfQ.Y2TjaDWB1T3vCRmbhgevtnWqvow9PDbXyzJrhdKtS3Wruw03yMc6IbagQYutbpwse9BVwuTqsQ-22RiSl6olIWyO9wIhkS-SBkRkMtCb1u5iTz2bQStRGd97Xi-2aOZtQ4GH1I0TypQPMdsO1IiUqAnylw_tRb08XjsIxs6mSUuWkzX6E_txWFsDC-48l-XsYxD5OTPzJJDPFT8mn-HDKzw9eTJBES8EZXInvPE4c4cjZPrFYQhUFyNbWKP6nRammKkpLhqCrUsUYc4RL3nSFlS2berpOyChIY0r0RSzSxhdfBkI4Xa5hrOSBHFobmY6bJz69RAxiqnW1m641R9Ptg"
 
 
-def create_story(number_of_children):
+def create_story(number_of_children, target, theme):
     # Generate story
-    MODEL_NAME = "meta-llama/Llama-3.3-70B-Instruct"
+    MODEL_NAME = "meta-llama/Meta-Llama-3.1-405B-Instruct-FP8"
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": "You are an author who creates beautiful bedtime stories for kids."},
-    {"role": "user", "content": f"Generate a beautiful bedtime story that include {number_of_children}. Give back the story itself without any additional comments."}
+    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme} and an audience of {number_of_children} kids. Give back the story itself without any additional comments."}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
@@ -35,11 +34,11 @@ def create_story(number_of_children):
 
 
 def translate(story_english, to_language):
-    MODEL_NAME = "mistralai/Mixtral-8x7B-Instruct-v0.1"
+    MODEL_NAME = "meta-llama/Meta-Llama-3.1-405B-Instruct-FP8"
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
-    {"role": "system", "content": f"You are an bi-lingual assistant who translates text from English into different languages."},
-    {"role": "user", "content": f"Translate the following story into {to_language}:\n\n{story_english}"}
+    {"role": "system", "content": f"You are an assistant who translates text from English into different languages."},
+    {"role": "user", "content": f"Carefully translate the following story into {to_language}. Take care about grammar and correct spelling:\n\n{story_english}"}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
@@ -70,8 +69,8 @@ def create_image(story:str):
     return response.json()['data'][0]['b64_json']  # Return only the base64 encoded string
 
 
-def create_book(language, number_of_children):
-    story = create_story(number_of_children)
+def create_book(language, target, theme, number_of_children):
+    story = create_story(number_of_children, target, theme)
     if not language == "English":
         story_output = translate(story, language)
     else:
@@ -91,12 +90,14 @@ def create_book(language, number_of_children):
 with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{display:none !important}") as demo:
     gr.Markdown("# 🥱 BedTime Stories")
     gr.Markdown("### Daily a new bedtime story for kids. It just takes a minute.")
-    gr.Markdown("### 🇪🇺 Available in all languages spoken in the EU.")
+    gr.Markdown("### Available for a lot of languages spoken in the EU. 🇪🇺")
     
     with gr.Row():
-        language = gr.Dropdown(label="Select your language", choices=languages)
-    with gr.Row():
+        language = gr.Dropdown(label="Select your language:", choices=languages)
         number_of_children = gr.Number(label="Number of children", value=1)
+    with gr.Row():
+        target = gr.Dropdown(label="Story for:", choices=targets)
+        theme = gr.Dropdown(label="Story about:", choices=themes)
     
     create_button = gr.Button("Create")
     
@@ -107,6 +108,6 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
 
     gr.Markdown("Made with ❤️ in Germany")
     
-    create_button.click(fn=create_book, inputs=[language, number_of_children], outputs=[story_output, image_output])
+    create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children], outputs=[story_output, image_output], concurrency_limit=3)
 
 demo.launch(server_name="0.0.0.0", server_port=7860)
