@@ -38,7 +38,7 @@ def translate(story_english, to_language):
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": f"You are an assistant who translates text from English into different languages."},
-    {"role": "user", "content": f"Carefully translate the following story into {to_language}. Take care about grammar and correct spelling:\n\n{story_english}"}
+    {"role": "user", "content": f"Carefully translate the following story into {to_language}. Take care about grammar and correct spelling. Create only the translated story without any additional comments:\n\n{story_english}"}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
