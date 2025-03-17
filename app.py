@@ -9,7 +9,7 @@ import requests
 # Global Stuff
 languages = ["English", "French", "German", "Italian", "Polish", "Portuguese" , "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
-themes = ["Dinosaurs", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
+themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
 
 
