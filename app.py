@@ -99,7 +99,7 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
         target = gr.Dropdown(label="Story for:", choices=targets)
         theme = gr.Dropdown(label="Story about:", choices=themes)
     
-    gr.Markdown("# We are currently facing connection issues with AI provider.")
+    gr.Markdown("## ⚠️ We are currently facing connection issues with AI provider.")
 
     create_button = gr.Button("Create")
     
