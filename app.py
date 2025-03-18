@@ -8,7 +8,7 @@ import requests
 
 
 # Global Stuff
-languages = ["English", "French", "German", "Italian", "Polish", "Portuguese" , "Spanish"]
+languages = ["English", "French", "German", "Italian", "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
 themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
@@ -76,7 +76,16 @@ def create_book(language, target, theme, number_of_children):
     if not language == "English":
         try:
             deepl_client = deepl.DeepLClient(deepl_auth_key)
-            story_output = deepl_client.translate_text(story, target_lang="DE")
+            match language:
+                case "French":
+                    target_lang = "FR"
+                case "German":
+                    target_lang = "DE"
+                case "Italian":
+                    target_lang = "IT"
+                case "Spanish":
+                    target_lang = "ES"
+            story_output = deepl_client.translate_text(story, target_lang=target_lang)
         except:
             story_output = translate(story, language)
     else:
@@ -96,7 +105,7 @@ def create_book(language, target, theme, number_of_children):
 with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{display:none !important}") as demo:
     gr.Markdown("# 🥱 BedTime Stories")
     gr.Markdown("### Daily a new bedtime story for kids. It just takes a minute.")
-    gr.Markdown("### Available for a lot of languages spoken in the EU. 🇪🇺")
+    gr.Markdown("### Available for many languages spoken in the EU. 🇪🇺")
     
     with gr.Row():
         language = gr.Dropdown(label="Select your language:", choices=languages)
