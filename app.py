@@ -74,8 +74,11 @@ def create_image(story:str):
 def create_book(language, target, theme, number_of_children):
     story = create_story(number_of_children, target, theme)
     if not language == "English":
-        try:
-            deepl_client = deepl.DeepLClient(deepl_auth_key)
+        deepl_client = deepl.DeepLClient(deepl_auth_key)
+        usage = deepl_client.get_usage()
+        if usage.any_limit_reached:
+            story_output = translate(story, language)
+        else:
             match language:
                 case "French":
                     target_lang = "FR"
@@ -85,9 +88,7 @@ def create_book(language, target, theme, number_of_children):
                     target_lang = "IT"
                 case "Spanish":
                     target_lang = "ES"
-            story_output = deepl_client.translate_text(story, target_lang=target_lang)
-        except:
-            story_output = translate(story, language)
+            story_output = deepl_client.translate_text(story, target_lang=target_lang)    
     else:
         story_output = story
     image_response = create_image(story)
