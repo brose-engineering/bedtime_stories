@@ -1,8 +1,9 @@
 from base64 import b64decode
 from PIL import Image
+import deepl
 import gradio as gr
-import os
 import io
+import os
 import requests
 
 
@@ -11,6 +12,7 @@ languages = ["English", "French", "German", "Italian", "Polish", "Portuguese" , 
 targets = ["Girls", "Boys", "Girls and Boys"]
 themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
+deepl_auth_key = os.getenv('deepl_auth_key')
 
 
 def create_story(number_of_children, target, theme):
@@ -72,7 +74,11 @@ def create_image(story:str):
 def create_book(language, target, theme, number_of_children):
     story = create_story(number_of_children, target, theme)
     if not language == "English":
-        story_output = translate(story, language)
+        try:
+            deepl_client = deepl.DeepLClient(deepl_auth_key)
+            story_output = deepl_client.translate_text(story, target_lang="DE")
+        except:
+            story_output = translate(story, language)
     else:
         story_output = story
     image_response = create_image(story)
