@@ -1,5 +1,7 @@
 from base64 import b64decode
 from PIL import Image
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
 import deepl
 import gradio as gr
 import io
@@ -14,6 +16,7 @@ targets = ["Girls", "Boys", "Girls and Boys"]
 themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
 deepl_auth_key = os.getenv('deepl_auth_key')
+story_created = False
 
 
 def create_story(number_of_children, target, theme, target_age, duration):
@@ -103,6 +106,35 @@ def create_book(language, target, theme, number_of_children, target_age, duratio
     return story_output, image_data_pil
 
 
+def download_as_pdf(story, image):
+    # Create a PDF file
+    pdf_path = "story.pdf"
+    c = canvas.Canvas(pdf_path, pagesize=A4)
+    
+    # Get the width and height of the image
+    image_width, image_height = 1024, 1024  # Assuming the image dimensions
+    
+    # Calculate the center position for the text
+    text_x = (A4[0] - c.stringWidth(story, "Helvetica", 12)) / 2
+    text_y = 792 - 30  # 30 is an arbitrary offset for better appearance
+    
+    # Calculate the center position for the image
+    image_x = (A4[0] - image_width) / 2
+    image_y = 742 - image_height  # Adjust Y coordinate for better appearance
+    
+    # Add the input string to the PDF
+    c.setFont("Helvetica", 12)
+    c.drawCentredString(text_x, text_y, story)
+    
+    # Add the image to the PDF
+    c.drawImage(image, image_x, image_y, width=image_width, height=image_height)
+    
+    # Save the PDF
+    c.save()
+    
+    return pdf_path
+
+
 # Define Gradio interface
 with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{display:none !important}") as demo:
     gr.Markdown("# 🥱 BedTime Stories")
@@ -118,16 +150,19 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
         target = gr.Dropdown(label="Story for:", choices=targets)
         theme = gr.Dropdown(label="Story about:", choices=themes)
 
-    create_button = gr.Button("Create")
+    create_button = gr.Button("Create Story")
     
     with gr.Row():
-        image_output = gr.Image(type="pil")
+        image_output = gr.Image(type="pil", interactive=False, show_label=False)
     with gr.Row():
-        story_output = gr.Textbox(label="Story:", lines=30)
+        story_output = gr.Textbox(label="Story:", lines=25)
+
+    download_story_button = gr.Button("Download Story")
+    
+    create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
+    download_story_button.click(fn=download_as_pdf, inputs=[story_output, image_output], outputs=gr.File(label="Download PDF", interactive=False))
 
     gr.Markdown("Made with ❤️ in Germany by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
     gr.Markdown("This app is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
-    
-    create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
 
 demo.launch(server_name="0.0.0.0", server_port=7860, allowed_paths=["/"])
