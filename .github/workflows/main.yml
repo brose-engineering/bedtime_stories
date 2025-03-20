@@ -15,6 +15,6 @@ jobs:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         git config --global user.email "yannic@yannic-brose.de"
-        git config --global user.name "Yannic Brose"
+        git config --global user.name "yanbro"
         git remote add space https://yanbro:$HF_TOKEN@huggingface.co/spaces/yanbro/BedTimeStories
         git push space main --force
