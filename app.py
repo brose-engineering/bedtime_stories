@@ -16,13 +16,13 @@ IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
 deepl_auth_key = os.getenv('deepl_auth_key')
 
 
-def create_story(number_of_children, target, theme):
+def create_story(number_of_children, target, theme, target_age, duration):
     # Generate story
     MODEL_NAME = "meta-llama/Meta-Llama-3.1-405B-Instruct-FP8"
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": "You are an author who creates beautiful bedtime stories for kids."},
-    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. There is an audience of {number_of_children} kids in the age of. Create a story that takes about {duration} minutes to read and avoid any additional comments besides the actual story."}
+    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. There is an audience of {number_of_children} kids in the age of {target_age}. Create a story that takes about {duration} minutes to read and avoid any additional comments besides the actual story."}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
