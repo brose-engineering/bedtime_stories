@@ -120,37 +120,48 @@ def download_as_pdf(story, image):
     image_x = (page_width - image_width) / 2
     image_y = page_height - margin_top - image_height
     
-    # Add the image to the PDF
+    # Add the image to the PDF (only on first page)
     c.drawInlineImage(image, image_x, image_y, width=image_width, height=image_height)
     
-    # Add the story text below the image
+    # Text parameters
     text_margin_top = 30
     text_width = page_width * 0.9  # 90% of page width
     text_x = (page_width - text_width) / 2
     text_y = image_y - text_margin_top
+    line_height = 20
+    margin_bottom = 50
     
-    # Use a larger font size for better readability
-    c.setFont("Helvetica", 12)
-    
-    # Split text into lines and draw them
+    # Split story into words
     words = story.split()
-    lines = []
     current_line = []
     
+    c.setFont("Helvetica", 12)
+    
+    # Process words and create lines
     for word in words:
         current_line.append(word)
         line_width = c.stringWidth(' '.join(current_line), "Helvetica", 12)
+        
         if line_width > text_width:
             current_line.pop()
-            lines.append(' '.join(current_line))
+            # Draw the line
+            if text_y < margin_bottom:  # Need new page
+                c.showPage()  # Start new page
+                text_y = page_height - margin_top  # Reset Y position for new page
+                c.setFont("Helvetica", 12)  # Need to reset font after new page
+            
+            c.drawString(text_x, text_y, ' '.join(current_line))
+            text_y -= line_height
             current_line = [word]
     
+    # Draw remaining text
     if current_line:
-        lines.append(' '.join(current_line))
-    
-    for line in lines:
-        c.drawString(text_x, text_y, line)
-        text_y -= 20  # Line spacing
+        if text_y < margin_bottom:  # Need new page
+            c.showPage()  # Start new page
+            text_y = page_height - margin_top
+            c.setFont("Helvetica", 12)
+        
+        c.drawString(text_x, text_y, ' '.join(current_line))
     
     # Save the PDF
     c.save()
