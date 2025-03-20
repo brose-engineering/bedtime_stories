@@ -105,22 +105,56 @@ def create_book(language, target, theme, number_of_children, target_age, duratio
 def download_as_pdf(story, image):
     # Create a PDF file
     pdf_path = "story.pdf"
-    c = canvas.Canvas(pdf_path, pagesize=A4)    
-    # Get the width and height of the image
-    image_width, image_height = 1024, 1024    
-    # Calculate the center position for the text
-    text_x = (A4[0] - c.stringWidth(story, "Helvetica", 12)) / 2
-    text_y = 792 - 30    
-    # Calculate the center position for the image
-    image_x = (A4[0] - image_width) / 2
-    image_y = 742 - image_height    
-    # Add the input string to the PDF
+    c = canvas.Canvas(pdf_path, pagesize=A4)
+    
+    # A4 dimensions in points (595.2, 841.8)
+    page_width = A4[0]
+    page_height = A4[1]
+    
+    # Set image width to 80% of page width and maintain aspect ratio
+    image_width = page_width * 0.8
+    image_height = image_width  # Since it's a square image
+    
+    # Position image at top of page with some margin
+    margin_top = 50
+    image_x = (page_width - image_width) / 2
+    image_y = page_height - margin_top - image_height
+    
+    # Add the image to the PDF
+    c.drawInlineImage(image, image_x, image_y, width=image_width, height=image_height)
+    
+    # Add the story text below the image
+    text_margin_top = 30
+    text_width = page_width * 0.9  # 90% of page width
+    text_x = (page_width - text_width) / 2
+    text_y = image_y - text_margin_top
+    
+    # Use a larger font size for better readability
     c.setFont("Helvetica", 12)
-    c.drawCentredString(text_x, text_y, story)    
-    # Add the image to the PDF directly using the PIL Image object
-    c.drawInlineImage(image, image_x, image_y, width=image_width, height=image_height)    
+    
+    # Split text into lines and draw them
+    words = story.split()
+    lines = []
+    current_line = []
+    
+    for word in words:
+        current_line.append(word)
+        line_width = c.stringWidth(' '.join(current_line), "Helvetica", 12)
+        if line_width > text_width:
+            current_line.pop()
+            lines.append(' '.join(current_line))
+            current_line = [word]
+    
+    if current_line:
+        lines.append(' '.join(current_line))
+    
+    for line in lines:
+        c.drawString(text_x, text_y, line)
+        text_y -= 20  # Line spacing
+    
     # Save the PDF
-    c.save()    
+    c.save()
+    
     return pdf_path
 
 
