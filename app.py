@@ -96,42 +96,32 @@ def create_book(language, target, theme, number_of_children, target_age, duratio
     else:
         story_output = story
     image_response = create_image(story)
-
     # Decode the base64 image data
     img_data = b64decode(image_response)
-
     # Create a PIL image
     image_data_pil = Image.open(io.BytesIO(img_data))
-
     return story_output, image_data_pil
 
 
 def download_as_pdf(story, image):
     # Create a PDF file
     pdf_path = "story.pdf"
-    c = canvas.Canvas(pdf_path, pagesize=A4)
-    
+    c = canvas.Canvas(pdf_path, pagesize=A4)    
     # Get the width and height of the image
-    image_width, image_height = 1024, 1024  # Assuming the image dimensions
-    
+    image_width, image_height = 1024, 1024  # Assuming the image dimensions    
     # Calculate the center position for the text
     text_x = (A4[0] - c.stringWidth(story, "Helvetica", 12)) / 2
-    text_y = 792 - 30  # 30 is an arbitrary offset for better appearance
-    
+    text_y = 792 - 30  # 30 is an arbitrary offset for better appearance    
     # Calculate the center position for the image
     image_x = (A4[0] - image_width) / 2
-    image_y = 742 - image_height  # Adjust Y coordinate for better appearance
-    
+    image_y = 742 - image_height  # Adjust Y coordinate for better appearance    
     # Add the input string to the PDF
     c.setFont("Helvetica", 12)
-    c.drawCentredString(text_x, text_y, story)
-    
+    c.drawCentredString(text_x, text_y, story)    
     # Add the image to the PDF
-    c.drawImage(image, image_x, image_y, width=image_width, height=image_height)
-    
+    c.drawImage(image, image_x, image_y, width=image_width, height=image_height)    
     # Save the PDF
-    c.save()
-    
+    c.save()    
     return pdf_path
 
 
