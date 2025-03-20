@@ -147,7 +147,7 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     with gr.Row():
         story_output = gr.Textbox(label="Story:", lines=25)
 
-    download_story_button = gr.Button("Download Story")
+    download_story_button = gr.Button("Download Story [available soon...]", interactive=False)
     
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
     download_story_button.click(fn=download_as_pdf, inputs=[story_output, image_output], outputs=gr.File(label="Download PDF", interactive=False))
