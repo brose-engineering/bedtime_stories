@@ -126,7 +126,7 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
         story_output = gr.Textbox(label="Story:", lines=30)
 
     gr.Markdown("Made with ❤️ in Germany by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
-    gr.Markdown("This app is hosted on Huggingface: [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
+    gr.Markdown("This app is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
     
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
 
