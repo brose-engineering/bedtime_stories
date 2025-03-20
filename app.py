@@ -176,9 +176,7 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
         duration = gr.Number(label="Story length in minutes:", value=5)
         target = gr.Dropdown(label="Story for:", choices=targets)
         theme = gr.Dropdown(label="Story about:", choices=themes)
-
     create_button = gr.Button("Create Story")
-    
     with gr.Row():
         image_output = gr.Image(type="pil", interactive=False, show_label=False)
     with gr.Row():
