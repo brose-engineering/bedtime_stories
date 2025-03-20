@@ -16,5 +16,5 @@ jobs:
       run: |
         git config --global user.email "yannic@yannic-brose.de"
         git config --global user.name "Yannic Brose"
-        git remote add space https://yanbro:$HF_TOKEN@huggingface.co/spaces/your-username/your-space-name
+        git remote add space https://yanbro:$HF_TOKEN@huggingface.co/spaces/yanbro/BedTimeStories
         git push space main --force
