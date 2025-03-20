@@ -14,8 +14,6 @@ ages = ["3 years and older", "5 years and older", "7 years and older"]
 languages = ["English", "French", "German", "Italian", "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
 themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
-story_created = False
-
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
 deepl_auth_key = os.getenv('deepl_auth_key')
 
@@ -77,7 +75,6 @@ def create_image(story:str):
 
 
 def create_book(language, target, theme, number_of_children, target_age, duration):
-    global story_created
     story = create_story(number_of_children, target, theme, target_age, duration)
     if not language == "English":
         deepl_client = deepl.DeepLClient(deepl_auth_key)
@@ -101,8 +98,7 @@ def create_book(language, target, theme, number_of_children, target_age, duratio
     # Decode the base64 image data
     img_data = b64decode(image_response)
     # Create a PIL image
-    image_data_pil = Image.open(io.BytesIO(img_data))
-    story_created = True
+    image_data_pil = Image.open(io.BytesIO(img_data))    
     return story_output, image_data_pil
 
 
@@ -179,9 +175,9 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     with gr.Row():
         image_output = gr.Image(type="pil", interactive=False, show_label=False)
     with gr.Row():
-        story_output = gr.Textbox(label="Story:", lines=25)
+        story_output = gr.Textbox(label="Story:", interactive=False, lines=25)
 
-    download_story_button = gr.Button("Download Story", interactive=lambda: story_created)
+    download_story_button = gr.Button("Download Story", interactive=True)
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
     download_story_button.click(fn=download_as_pdf, inputs=[story_output, image_output], outputs=gr.File(label="Your story as PDF", interactive=False))
 
