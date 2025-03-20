@@ -22,7 +22,7 @@ def create_story(number_of_children, target, theme, target_age, duration):
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": "You are an author who creates beautiful bedtime stories for kids."},
-    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. There is an audience of {number_of_children} kids in the age of {target_age}. Create a story that takes about {duration} minutes to read and avoid any additional comments besides the actual story."}
+    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. The audience contains {number_of_children} kids in the age of {target_age}. Create a story that takes about {duration} minutes to read. Avoid any additional comments besides the actual story."}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
@@ -125,7 +125,7 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     with gr.Row():
         story_output = gr.Textbox(label="Story:", lines=30)
 
-    gr.Markdown("Made with ❤️ in Germany by [brose-engineering.de](https://brose-engineering.de/) :: [GitHub](https://github.com/brose-engineering/bedtime_stories)")
+    gr.Markdown("Made with ❤️ in Germany by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
     gr.Markdown("This app is hosted on Huggingface: [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
     
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
