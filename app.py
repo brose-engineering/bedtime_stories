@@ -14,6 +14,8 @@ ages = ["3 years and older", "5 years and older", "7 years and older"]
 languages = ["English", "French", "German", "Italian", "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
 themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
+story_created = False
+
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
 deepl_auth_key = os.getenv('deepl_auth_key')
 
@@ -75,6 +77,7 @@ def create_image(story:str):
 
 
 def create_book(language, target, theme, number_of_children, target_age, duration):
+    global story_created
     story = create_story(number_of_children, target, theme, target_age, duration)
     if not language == "English":
         deepl_client = deepl.DeepLClient(deepl_auth_key)
@@ -99,73 +102,60 @@ def create_book(language, target, theme, number_of_children, target_age, duratio
     img_data = b64decode(image_response)
     # Create a PIL image
     image_data_pil = Image.open(io.BytesIO(img_data))
+    story_created = True
     return story_output, image_data_pil
 
 
 def download_as_pdf(story, image):
     # Create a PDF file
     pdf_path = "story.pdf"
-    c = canvas.Canvas(pdf_path, pagesize=A4)
-    
+    c = canvas.Canvas(pdf_path, pagesize=A4)    
     # A4 dimensions in points (595.2, 841.8)
     page_width = A4[0]
-    page_height = A4[1]
-    
+    page_height = A4[1]    
     # Set image width to 80% of page width and maintain aspect ratio
     image_width = page_width * 0.8
-    image_height = image_width  # Since it's a square image
-    
+    image_height = image_width  # Since it's a square image    
     # Position image at top of page with some margin
     margin_top = 50
     image_x = (page_width - image_width) / 2
-    image_y = page_height - margin_top - image_height
-    
+    image_y = page_height - margin_top - image_height    
     # Add the image to the PDF (only on first page)
-    c.drawInlineImage(image, image_x, image_y, width=image_width, height=image_height)
-    
+    c.drawInlineImage(image, image_x, image_y, width=image_width, height=image_height)    
     # Text parameters
     text_margin_top = 30
     text_width = page_width * 0.9  # 90% of page width
     text_x = (page_width - text_width) / 2
     text_y = image_y - text_margin_top
     line_height = 20
-    margin_bottom = 50
-    
+    margin_bottom = 50    
     # Split story into words
     words = story.split()
-    current_line = []
-    
-    c.setFont("Helvetica", 12)
-    
+    current_line = []    
+    c.setFont("Helvetica", 12)    
     # Process words and create lines
     for word in words:
         current_line.append(word)
-        line_width = c.stringWidth(' '.join(current_line), "Helvetica", 12)
-        
+        line_width = c.stringWidth(' '.join(current_line), "Helvetica", 12)        
         if line_width > text_width:
             current_line.pop()
             # Draw the line
             if text_y < margin_bottom:  # Need new page
                 c.showPage()  # Start new page
                 text_y = page_height - margin_top  # Reset Y position for new page
-                c.setFont("Helvetica", 12)  # Need to reset font after new page
-            
+                c.setFont("Helvetica", 12)  # Need to reset font after new page            
             c.drawString(text_x, text_y, ' '.join(current_line))
             text_y -= line_height
-            current_line = [word]
-    
+            current_line = [word]    
     # Draw remaining text
     if current_line:
         if text_y < margin_bottom:  # Need new page
             c.showPage()  # Start new page
             text_y = page_height - margin_top
-            c.setFont("Helvetica", 12)
-        
-        c.drawString(text_x, text_y, ' '.join(current_line))
-    
+            c.setFont("Helvetica", 12)        
+        c.drawString(text_x, text_y, ' '.join(current_line))    
     # Save the PDF
-    c.save()
-    
+    c.save()    
     return pdf_path
 
 
@@ -191,11 +181,11 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     with gr.Row():
         story_output = gr.Textbox(label="Story:", lines=25)
 
-    download_story_button = gr.Button("Download Story")
+    download_story_button = gr.Button("Download Story", interactive=lambda: story_created)
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
     download_story_button.click(fn=download_as_pdf, inputs=[story_output, image_output], outputs=gr.File(label="Your story as PDF", interactive=False))
 
     gr.Markdown("Made with ❤️ in Germany by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
     gr.Markdown("This app is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
 
-demo.launch(server_name="0.0.0.0", server_port=7860, allowed_paths=["/"])
+demo.launch()
