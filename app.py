@@ -112,6 +112,13 @@ def download_as_pdf(story, image):
     # Set image width to 80% of page width and maintain aspect ratio
     image_width = page_width * 0.8
     image_height = image_width  # Since it's a square image    
+    # Add disclaimer at the top
+    disclaimer = "AI Generated Story from https://stories.brose-engineering.de"
+    c.setFont("Helvetica", 10)  # Smaller font for disclaimer
+    disclaimer_width = c.stringWidth(disclaimer, "Helvetica", 10)
+    disclaimer_x = (page_width - disclaimer_width) / 2
+    disclaimer_y = page_height - 30  # Position at top with margin
+    c.drawString(disclaimer_x, disclaimer_y, disclaimer)
     # Position image at top of page with some margin
     margin_top = 50
     image_x = (page_width - image_width) / 2
