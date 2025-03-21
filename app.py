@@ -11,7 +11,7 @@ import requests
 
 # Global Stuff
 ages = ["3 years and older", "5 years and older", "7 years and older"]
-languages = ["English", "French", "German", "Italian", "Spanish"]
+languages = ["English 🇬🇧", "French 🇫🇷", "German 🇩🇪", "Italian 🇮🇹", "Spanish 🇪🇦"]
 targets = ["Girls", "Boys", "Girls and Boys"]
 themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
@@ -76,7 +76,7 @@ def create_image(story:str):
 
 def create_book(language, target, theme, number_of_children, target_age, duration):
     story = create_story(number_of_children, target, theme, target_age, duration)
-    if not language == "English":
+    if not "English" in language:
         deepl_client = deepl.DeepLClient(deepl_auth_key)
         usage = deepl_client.get_usage()
         if usage.any_limit_reached:
@@ -186,7 +186,8 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
     download_story_button.click(fn=download_as_pdf, inputs=[story_output, image_output], outputs=gr.File(label="Your story as PDF", interactive=False))
 
-    gr.Markdown("Made with ❤️ in Germany by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
-    gr.Markdown("This app is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
+    gr.Markdown("🖤 Created by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
+    gr.Markdown("❤️ Translations by DeepL | [www.deepl.com](https://www.deepl.com) | [Why DeepL?](https://www.deepl.com/en/quality)")
+    gr.Markdown("💛 This app is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
 
 demo.launch()
