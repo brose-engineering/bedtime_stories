@@ -11,7 +11,7 @@ import requests
 
 # Global Stuff
 ages = ["3 years and older", "5 years and older", "7 years and older"]
-languages = ["English 🇬🇧", "French 🇫🇷", "German 🇩🇪", "Italian 🇮🇹", "Spanish 🇪🇦"]
+languages = ["English", "French", "German", "Italian", "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
 themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
@@ -170,7 +170,7 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     
     with gr.Row():
         number_of_children = gr.Number(label="Number of children:", value=1)
-        language = gr.Dropdown(label="Select your language:", choices=languages)
+        language = gr.Dropdown(label="Select your language: 🇬🇧 🇫🇷 🇩🇪 🇮🇹 🇪🇦", choices=languages)
         target_age = gr.Dropdown(label="Childrens age:", choices=ages)
     with gr.Row():
         duration = gr.Number(label="Story length in minutes:", value=5)
