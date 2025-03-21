@@ -186,8 +186,8 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     create_button.click(fn=create_book, inputs=[language, target, theme, number_of_children, target_age, duration], outputs=[story_output, image_output], concurrency_limit=3)
     download_story_button.click(fn=download_as_pdf, inputs=[story_output, image_output], outputs=gr.File(label="Your story as PDF", interactive=False))
 
-    gr.Markdown("🖤 Created by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
+    gr.Markdown("🖤 Created with 💚 by [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
     gr.Markdown("❤️ Translations by DeepL | [www.deepl.com](https://www.deepl.com) | [Why DeepL?](https://www.deepl.com/en/quality)")
-    gr.Markdown("💛 This app is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
+    gr.Markdown("💛 App is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
 
 demo.launch()
