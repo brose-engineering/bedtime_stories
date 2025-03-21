@@ -188,6 +188,6 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
 
     gr.Markdown("Made with ❤️ in 🇩🇪 | [brose-engineering.de](https://brose-engineering.de/) | [GitHub](https://github.com/brose-engineering/bedtime_stories)")
     gr.Markdown("Translations by DeepL | [deepl.com](https://www.deepl.com) | [Why DeepL?](https://www.deepl.com/en/quality)")
-    gr.Markdown("App is hosted on Huggingface | [Terms of Service](https://huggingface.co/terms-of-service) | [Hugging Face Privacy Policy](https://huggingface.co/privacy)")
+    gr.Markdown("This Gradio-App is hosted on Huggingface | [Huggingface Terms of Service](https://huggingface.co/terms-of-service) | [Gradio.app](https://www.gradio.app/)")
 
 demo.launch()
