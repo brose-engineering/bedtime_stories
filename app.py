@@ -169,13 +169,13 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     gr.Markdown("### Available for many languages spoken in the EU. 🇪🇺")
     
     with gr.Row():
-        number_of_children = gr.Number(label="Number of children:", value=1)
+        number_of_children = gr.Number(label="Number of children: 🥱 😌 😴", value=1)
         language = gr.Dropdown(label="Select your language: 🇬🇧 🇫🇷 🇩🇪 🇮🇹 🇪🇦", choices=languages)
-        target_age = gr.Dropdown(label="Childrens age:", choices=ages)
+        target_age = gr.Dropdown(label="Childrens age: 3️⃣ 4️⃣ 5️⃣", choices=ages)
     with gr.Row():
-        duration = gr.Number(label="Story length in minutes:", value=5)
-        target = gr.Dropdown(label="Story for:", choices=targets)
-        theme = gr.Dropdown(label="Story about:", choices=themes)
+        duration = gr.Number(label="Story length in minutes: ⏲️", value=5)
+        target = gr.Dropdown(label="Story for: ♀️ ♂️", choices=targets)
+        theme = gr.Dropdown(label="Story about: 📖", choices=themes)
     create_button = gr.Button("Create Story")
     with gr.Row():
         image_output = gr.Image(type="pil", interactive=False, show_label=False)
