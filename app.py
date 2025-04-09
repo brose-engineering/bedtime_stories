@@ -10,7 +10,7 @@ import requests
 
 
 # Global Stuff
-durations = ["2min", "5min", "10min", "15min or more"]
+durations = ["2 min", "5 min", "10 min", "more than 10 min"]
 amount_children = ["1", "2", "3", "4", "more than 4"]
 ages = ["3 years and older", "5 years and older", "7 years and older"]
 languages = ["English", "French", "German", "Italian", "Spanish"]
@@ -175,7 +175,7 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
         language = gr.Dropdown(label="Select your language: 🇬🇧 🇫🇷 🇩🇪 🇮🇹 🇪🇦", choices=languages)
         target_age = gr.Dropdown(label="Childrens age: 3️⃣4️⃣5️⃣", choices=ages)
     with gr.Row():
-        duration = gr.Dropdown(label="Story length in minutes: ⏳", choices=durations)
+        duration = gr.Dropdown(label="Story length: ⏳", choices=durations)
         target = gr.Dropdown(label="Story for: ♀️♂️", choices=targets)
         theme = gr.Dropdown(label="Story about: 📖", choices=themes)
     create_button = gr.Button("Create Story")
