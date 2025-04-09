@@ -10,6 +10,8 @@ import requests
 
 
 # Global Stuff
+durations = ["2min", "5min", "10min", "15min or more"]
+amount_children = ["1", "2", "3", "4", "more than 4"]
 ages = ["3 years and older", "5 years and older", "7 years and older"]
 languages = ["English", "French", "German", "Italian", "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
@@ -24,7 +26,7 @@ def create_story(number_of_children, target, theme, target_age, duration):
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": "You are an author who creates beautiful bedtime stories for kids."},
-    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. The audience contains {number_of_children} kids in the age of {target_age}. The story should take about {duration} minutes to read assuming an average speed of 183 words per minute. Avoid any additional comments besides the actual story."}
+    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. The audience contains {number_of_children} kids in the age of {target_age}. The story should take about {duration} to read assuming an average speed of 183 words per minute. Avoid any additional comments besides the actual story."}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
@@ -169,11 +171,11 @@ with gr.Blocks(theme=gr.themes.Glass(), title="BedTimeStories", css="footer{disp
     gr.Markdown("### Available for many languages spoken in the EU. 🇪🇺")
     
     with gr.Row():
-        number_of_children = gr.Number(label="Number of children: 🥱😌😴", value=1)
+        number_of_children = gr.Dropdown(label="Number of children: 🥱😌😴", choices=amount_children)
         language = gr.Dropdown(label="Select your language: 🇬🇧 🇫🇷 🇩🇪 🇮🇹 🇪🇦", choices=languages)
         target_age = gr.Dropdown(label="Childrens age: 3️⃣4️⃣5️⃣", choices=ages)
     with gr.Row():
-        duration = gr.Number(label="Story length in minutes: ⏳", value=5)
+        duration = gr.Dropdown(label="Story length in minutes: ⏳", choices=durations)
         target = gr.Dropdown(label="Story for: ♀️♂️", choices=targets)
         theme = gr.Dropdown(label="Story about: 📖", choices=themes)
     create_button = gr.Button("Create Story")
