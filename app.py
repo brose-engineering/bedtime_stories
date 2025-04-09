@@ -11,11 +11,11 @@ import requests
 
 # Global Stuff
 durations = ["5 min", "10 min", "more than 10 min"]
-amount_children = ["1", "2", "3", "4", "more than 4"]
+amount_children = ["1", "2", "3", "more than 3"]
 ages = ["3 years and older", "5 years and older", "7 years and older"]
 languages = ["English", "French", "German", "Italian", "Spanish"]
 targets = ["Girls", "Boys", "Girls and Boys"]
-themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Pets", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
+themes = ["Dinosaurs", "Fairies", "Firebrigade", "Friendship", "Magic", "Pirates", "Ponys", "Princesses", "Police", "Space", "Superheroes"]
 IONOS_API_TOKEN = os.getenv('IONOS_API_TOKEN')
 deepl_auth_key = os.getenv('deepl_auth_key')
 
