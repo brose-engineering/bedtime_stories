@@ -10,7 +10,7 @@ import requests
 
 
 # Global Stuff
-durations = ["2 min", "5 min", "10 min", "more than 10 min"]
+durations = ["5 min", "10 min", "more than 10 min"]
 amount_children = ["1", "2", "3", "4", "more than 4"]
 ages = ["3 years and older", "5 years and older", "7 years and older"]
 languages = ["English", "French", "German", "Italian", "Spanish"]
