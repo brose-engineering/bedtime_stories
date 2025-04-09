@@ -26,7 +26,7 @@ def create_story(number_of_children, target, theme, target_age, duration):
     endpoint = "https://openai.inference.de-txl.ionos.com/v1/chat/completions"
     PROMPT = [
     {"role": "system", "content": "You are an author who creates beautiful bedtime stories for kids."},
-    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. The audience contains {number_of_children} kids in the age of {target_age}. The story should take about {duration} to read assuming an average speed of 183 words per minute. Avoid any additional comments besides the actual story."}
+    {"role": "user", "content": f"Generate a beautiful bedtime story for {target} about {theme}. The audience contains {number_of_children} kids in the age of {target_age}. The story should take about {duration} to read assuming an average speed of 183 words per minute. Avoid any additional comments besides the actual story. Do not use too long sentences, the story shall be easy to read and understandable for children."}
     ]
     header = {
     "Authorization": f"Bearer {IONOS_API_TOKEN}", 
