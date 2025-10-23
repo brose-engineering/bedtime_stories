@@ -8,7 +8,7 @@ A fun and interactive Gradio app that generates personalized bedtime stories for
 
 
 ## ⚠️ Notice
-**The app is currently offline as the free trial period from IONOS AI has ended.** We loved sharing BedTime Stories with the world and are thinking about how to continue offering this service in a sustainable way. If we find a solution, you can look forward to **BedTime Stories 2.0** in the future. Thank you for your support and understanding!
+**The app is currently offline as the generous free trial period from IONOS AI API has ended.** We loved sharing BedTime Stories with the world and are thinking about how to continue offering this service in a sustainable way. If we find a solution, you can look forward to **BedTime Stories 2.0** in the future. Thank you for your support and understanding!
 
 
 ## 🌟 Features
