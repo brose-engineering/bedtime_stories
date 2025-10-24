@@ -43,3 +43,15 @@ A fun and interactive Gradio app that generates personalized bedtime stories for
 | **Story Length**     | 5 min, 10 min, more than 10 min                                         |
 | **Target Audience**  | Girls, Boys, Girls and Boys                                             |
 | **Themes**           | Dinosaurs, Fairies, Firebrigade, Friendship, Magic, Pirates, Ponys, Princesses, Police, Space, Superheroes |
+
+---
+title: BedTimeStories
+emoji: 😻
+colorFrom: indigo
+colorTo: indigo
+sdk: gradio
+sdk_version: 5.20.1
+app_file: app.py
+pinned: false
+short_description: Everyday a new bedtime story for kids
+---
