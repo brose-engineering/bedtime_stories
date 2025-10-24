@@ -18,11 +18,11 @@ A fun and interactive Gradio app that generates personalized bedtime stories for
 
 🌍 **Available for many languages spoken in the EU.**
 
+![Screenshot of BedTimeStories](/screenshot.png "Screenshot of BedTimeStories")
+
 
 ## ⚠️ Notice
 **The app is currently offline as the generous free trial period from IONOS AI API has ended.** We loved sharing BedTime Stories with the world and are thinking about how to continue offering this service in a sustainable way. If we find a solution, you can look forward to **BedTime Stories 2.0** in the future. Thank you for your support and understanding!
-
-![Screenshot of BedTimeStories](/screenshot.png "Screenshot of BedTimeStories")
 
 
 ## 🌟 Features
